@@ -1,4 +1,6 @@
 /*globals describe it beforeEach afterEach */
+"use strict";
+
 require("should");
 var path = require("path");
 var fs = require("fs");
@@ -46,13 +48,13 @@ describe("Assumption", function() {
 			if(diffAfter > maxDiffAfter) maxDiffAfter = diffAfter;
 			sumDiffAfter += diffAfter;
 			if(i-- === 0) {
-				afterMeassure();
+				afterMeasure();
 			} else {
 				testHelper.tick(100, checkMtime);
 			}
 		});
 
-		function afterMeassure() {
+		function afterMeasure() {
 			console.log("mtime stats accuracy (before): [" + minDiffBefore + " ; " + maxDiffBefore + "] avg " + Math.round(sumDiffBefore / count));
 			console.log("mtime stats accuracy (after): [" + minDiffAfter + " ; " + maxDiffAfter + "] avg " + Math.round(sumDiffAfter / count));
 			minDiffBefore.should.be.aboveOrEqual(-2000);
@@ -98,7 +100,7 @@ describe("Assumption", function() {
 					sumDiffAfter += diffAfter;
 					before = after = undefined;
 					if(i-- === 0) {
-						afterMeassure();
+						afterMeasure();
 					} else {
 						testHelper.tick(100, checkMtime);
 					}
@@ -113,7 +115,7 @@ describe("Assumption", function() {
 			after = Date.now();
 		}
 
-		function afterMeassure() {
+		function afterMeasure() {
 			console.log("mtime chokidar accuracy (before): [" + minDiffBefore + " ; " + maxDiffBefore + "] avg " + Math.round(sumDiffBefore / count));
 			console.log("mtime chokidar accuracy (after): [" + minDiffAfter + " ; " + maxDiffAfter + "] avg " + Math.round(sumDiffAfter / count));
 			minDiffBefore.should.be.aboveOrEqual(-2000);
@@ -187,4 +189,3 @@ describe("Assumption", function() {
 		});
 	});
 });
-
